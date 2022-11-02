@@ -3,6 +3,7 @@ import { Outlet, Link } from "react-router-dom";
 
 import "./navigation.styles.scss";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
+
 const Navigation = () => (
   <Fragment>
     <div className="nav-container">
