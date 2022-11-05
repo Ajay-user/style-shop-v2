@@ -1,0 +1,52 @@
+.form-group {
+  position: relative;
+  border-radius: 5px;
+
+  &:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+
+  &__common {
+    padding: 1rem 2rem;
+    font-size: 1.6rem;
+  }
+
+  &__label {
+    position: absolute;
+    top: -2.6rem;
+    left: 0;
+
+    visibility: visible;
+    opacity: 1;
+    padding-left: 0;
+
+    transition: all 0.2s ease-in;
+  }
+
+  &__input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid grey;
+
+    &:active,
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__input:placeholder-shown + &__label {
+    top: 0rem;
+
+    visibility: hidden;
+    opacity: 0;
+    padding-left: 2rem;
+  }
+
+  &__input:valid {
+    border-bottom: 1px solid green;
+  }
+
+  // &__input:invalid {
+  //   border-bottom: 1px solid salmon;
+  // }
+}

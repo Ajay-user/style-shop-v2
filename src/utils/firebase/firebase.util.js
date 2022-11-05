@@ -1,11 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {
-  GoogleAuthProvider,
-  getAuth,
-  signInWithPopup,
-  signInWithRedirect,
-} from "firebase/auth";
+
+// getRedirectResult -- Returns a UserCredential from the redirect-based sign-in flow.
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 
 // firebase/firestore
 // doc -- Gets a DocumentReference instance that refers to the document at the specified absolute path.
@@ -15,7 +12,6 @@ import {
 //            If the document does not yet exist, it will be created.
 
 import { doc, getFirestore, getDoc, setDoc } from "firebase/firestore";
-import { useRef } from "react";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -46,7 +42,7 @@ export const signInWithGoogle = () => signInWithPopup(auth, provider);
 
 export const db = getFirestore();
 
-export const creatUserDocFromAuth = async (userAuth) => {
+export const creatUserDocFromAuth = async (userAuth, additionalInfo) => {
   const docRef = await doc(db, "user", userAuth.uid);
   const docSnapshot = await getDoc(docRef);
 
@@ -55,7 +51,13 @@ export const creatUserDocFromAuth = async (userAuth) => {
     const createdAt = new Date();
 
     try {
-      await setDoc(docRef, { displayName, email, photoURL, createdAt });
+      await setDoc(docRef, {
+        displayName,
+        email,
+        photoURL,
+        createdAt,
+        ...additionalInfo,
+      });
     } catch (error) {
       console.log("Error creating user", error.message);
     }

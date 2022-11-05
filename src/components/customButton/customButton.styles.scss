@@ -1,0 +1,38 @@
+.custom-button {
+  padding: 1rem 2rem;
+  font-size: inherit;
+  border-radius: 5px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  box-shadow: 0rem 1rem 2rem rgba($color: #000000, $alpha: 0.4);
+  cursor: pointer;
+
+  position: relative;
+
+  &::before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background-color: inherit;
+    border-radius: inherit;
+    z-index: -1;
+
+    transition: all 0.5s;
+  }
+
+  &:active {
+    transform: translateY(-0.3rem);
+  }
+
+  &:hover::before {
+    transform: scaleX(1.2) scaleY(1.4);
+    opacity: 0;
+  }
+}
