@@ -2,7 +2,12 @@
 import { initializeApp } from "firebase/app";
 
 // getRedirectResult -- Returns a UserCredential from the redirect-based sign-in flow.
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 // firebase/firestore
 // doc -- Gets a DocumentReference instance that refers to the document at the specified absolute path.
@@ -31,17 +36,28 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
 
+// GOOGLE SIGN-IN
 const provider = new GoogleAuthProvider();
 
 provider.setCustomParameters({ prompt: "select_account" });
 
-export const auth = getAuth();
-
 export const signInWithGoogle = () => signInWithPopup(auth, provider);
 
-export const db = getFirestore();
+// SIGN-IN WITH EMAIL AND PASSWORD --util
+export const firebaseSignInWithEmailAndPassword = async (email, password) =>
+  await signInWithEmailAndPassword(auth, email, password);
+// we can avoid the below steps as we account for it in user-context
+// const { user } = await signInWithEmailAndPassword(auth, email, password);
+// const userRef = await creatUserDocFromAuth(user);
+// setCurrentUser(userRef);
 
+// SIGN OUT A USER -- Util
+export const signOutUser = async () => await auth.signOut();
+
+// CHECK USER EXIST OR NOT IN USER COLL-- IF NOT THEN CREATE A NEW USER -- RETURN USER-REF -- Util
 export const creatUserDocFromAuth = async (userAuth, additionalInfo) => {
   const docRef = await doc(db, "user", userAuth.uid);
   const docSnapshot = await getDoc(docRef);
@@ -65,3 +81,6 @@ export const creatUserDocFromAuth = async (userAuth, additionalInfo) => {
 
   return docRef;
 };
+
+// FIREBASE : AUTH CHANGE LISTENER --util
+export const firebaseAuthChangeListener = (cb) => auth.onAuthStateChanged(cb);

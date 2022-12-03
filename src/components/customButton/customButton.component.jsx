@@ -1,7 +1,15 @@
 import "./customButton.styles.scss";
 
-const CustomButton = ({ name, type, onClickHandler }) => (
-  <button className="custom-button" type={type} onClick={onClickHandler}>
+const CustomButton = ({ name, type, onClickHandler, customClass }) => (
+  <button
+    className={
+      customClass
+        ? `custom-button custom-button--${customClass}`
+        : "custom-button"
+    }
+    type={type}
+    onClick={onClickHandler}
+  >
     {name}
   </button>
 );

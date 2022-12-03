@@ -5,7 +5,7 @@
   background-color: #000;
   color: #fff;
   border: none;
-  box-shadow: 0rem 1rem 2rem rgba($color: #000000, $alpha: 0.4);
+  box-shadow: 0rem 1rem 2rem rgba($color: #000000, $alpha: 0.6);
   cursor: pointer;
 
   position: relative;
@@ -34,5 +34,16 @@
   &:hover::before {
     transform: scaleX(1.2) scaleY(1.4);
     opacity: 0;
+  }
+
+  // custom styles for add-to-cart button
+  &--cart {
+    width: 100%;
+
+    text-transform: uppercase;
+
+    color: #000;
+    background-color: rgba($color: #fff, $alpha: 0.9);
+    box-shadow: 0rem 1rem 2rem rgba($color: #000000, $alpha: 0.8);
   }
 }

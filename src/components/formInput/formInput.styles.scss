@@ -12,8 +12,10 @@
   }
 
   &__label {
+    font-weight: 600;
+
     position: absolute;
-    top: -2.6rem;
+    top: -3.2rem;
     left: 0;
 
     visibility: visible;
@@ -26,7 +28,10 @@
   &__input {
     width: 100%;
     border: none;
+    border-radius: 2px;
     border-bottom: 1px solid grey;
+
+    box-shadow: 0rem 1rem 3rem rgba(black, 0.4);
 
     &:active,
     &:focus {

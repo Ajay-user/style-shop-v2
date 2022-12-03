@@ -2,6 +2,10 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  padding-top: 5rem;
+  background-image: url("../../../public/undraw_halloween_re_2kq1.svg");
+  background-repeat: repeat-x;
+  background-position: top;
 }
 
 @media only screen and (max-width: 1000px) {

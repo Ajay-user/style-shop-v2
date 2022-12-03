@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 // Creates a new user account associated with the specified email address and password.
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -10,8 +10,11 @@ import {
 } from "../../utils/firebase/firebase.util.js";
 
 import "./signUpForm.styles.scss";
+
 import FormInput from "../formInput/formInput.component";
 import CustomButton from "../customButton/customButton.component";
+
+import { UserContext } from "../../context/userContext.jsx";
 
 const SignUpForm = () => {
   const [username, setUsername] = useState("");
@@ -19,6 +22,8 @@ const SignUpForm = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const { setCurrentUser } = useContext(UserContext);
 
   // create the user and save it in the user-collection
   const onSubmitHandler = async (e) => {
@@ -42,7 +47,8 @@ const SignUpForm = () => {
       };
 
       // save the user in user-collection
-      await creatUserDocFromAuth(user, additionalInfo);
+      const userRef = await creatUserDocFromAuth(user, additionalInfo);
+      setCurrentUser(userRef);
 
       // reset the form
       setUsername("");
@@ -58,7 +64,7 @@ const SignUpForm = () => {
 
   return (
     <div className="sign-up-form-container">
-      {errorMessage ? <p className="error-message">{errorMessage}</p> : ""}
+      {errorMessage ? <p className="error-message">{errorMessage}</p> : null}
 
       <form onSubmit={onSubmitHandler}>
         <h2 className="form-heading">Don't have an account?</h2>

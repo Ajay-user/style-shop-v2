@@ -1,16 +1,14 @@
 import { useState } from "react";
 
 // Asynchronously signs in using an email and password.
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { signInWithGoogle } from "../../utils/firebase/firebase.util";
 
-//  Auth instance associated with the provided @firebase/auth
 import {
-  auth,
-  creatUserDocFromAuth,
-} from "../../utils/firebase/firebase.util.js";
+  signInWithGoogle,
+  firebaseSignInWithEmailAndPassword,
+} from "../../utils/firebase/firebase.util";
 
 import "./sign-In-Form.styles.scss";
+
 import FormInput from "../formInput/formInput.component";
 import CustomButton from "../customButton/customButton.component";
 
@@ -21,8 +19,10 @@ const SignInForm = () => {
 
   // handle google login
   const handleGoogle = async () => {
-    const response = await signInWithGoogle();
-    await creatUserDocFromAuth(response.user);
+    await signInWithGoogle();
+    // we can remove this create-User-docs step because we account for it in usercontext
+    // const response = await signInWithGoogle();
+    // await creatUserDocFromAuth(response.user);
   };
 
   // sign-in with email and password
@@ -31,15 +31,17 @@ const SignInForm = () => {
 
     try {
       // Asynchronously signs in using an email and password.
-      const { user } = await signInWithEmailAndPassword(auth, email, password);
-      await creatUserDocFromAuth(user);
+      await firebaseSignInWithEmailAndPassword(email, password);
+
+      // const { user } = await signInWithEmailAndPassword(auth, email, password);
+      // const userRef = await creatUserDocFromAuth(user);
+      // setCurrentUser(userRef);
 
       // reset the form
-
       setEmail("");
       setPassword("");
     } catch (error) {
-      console.log("Error creating user", error);
+      console.log("Error during user sign-in", error);
       // if there is any error -- we need to show the error-message in UI
       setErrorMessage(error.message);
     }
@@ -70,7 +72,9 @@ const SignInForm = () => {
           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
           title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
         />
-        <h2 className="form-heading">Have a Google account?</h2>
+        <h2 className="form-heading form-heading-second">
+          Have a Google account?
+        </h2>
 
         <div className="button-group">
           <CustomButton name="Sign-In" type="submit" />

@@ -6,11 +6,19 @@
   padding-top: 4rem;
   border: 1px solid grey;
   border-radius: 10px;
+
+  box-shadow: 0rem 1rem 3rem rgba(black, 0.6);
 }
 
 .form-heading {
   font-size: 2.5rem;
   margin-bottom: 2rem;
+}
+
+.form-heading-second {
+  box-decoration-break: clone;
+  padding-left: 40%;
+  text-align: right;
 }
 
 .error-message {
@@ -21,4 +29,27 @@
 .button-group {
   display: flex;
   justify-content: space-between;
+}
+
+// landscape
+@media only screen and (max-width: 1000px) {
+  .form-heading {
+    margin-bottom: 3rem;
+  }
+  .form-heading-second {
+    text-align: right;
+  }
+}
+
+// landscape
+@media only screen and (max-width: 300px) {
+  .button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  .form-heading-second {
+    text-align: left;
+    padding-left: 0;
+  }
 }
