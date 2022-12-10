@@ -20,23 +20,8 @@ body {
 
 
 @media only screen and (max-width: 800px) {
-  html {
-    font-size: 60%;
-  }
-
   body {
-    font-size: 1.2rem;
     font-weight: 200;
     padding: 2rem;
   }
 }
-
-
-/* @media only screen and (max-width: 500px) {
-  body {
-    background-color: aliceblue;
-    font-size: 1.0rem;
-    font-weight: 100;
-    padding: 1rem;
-  }
-} */

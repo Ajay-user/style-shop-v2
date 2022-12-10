@@ -5,7 +5,7 @@
   row-gap: 2rem;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1024px) {
   .shop-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
