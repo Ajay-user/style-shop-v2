@@ -1,5 +1,5 @@
 .cart-drop-down-container {
-  max-width: 500px;
+  max-width: 400px;
   width: 75vw;
   // height: 65vh;
   background-color: white;
@@ -15,7 +15,7 @@
 }
 
 .cart-drop-down-header {
-  padding: 1.5rem;
+  padding-top: 3rem;
   text-align: center;
   text-transform: capitalize;
   position: relative;
@@ -30,7 +30,7 @@
 .drop-down-list {
   list-style: none;
   padding: 1.5rem;
-  height: 45vh;
+  height: 44vh;
 
   overflow-y: scroll;
 
@@ -80,5 +80,5 @@
 .cart-button {
   display: flex;
   justify-content: center;
-  padding-bottom: 1rem;
+  padding: 1rem;
 }

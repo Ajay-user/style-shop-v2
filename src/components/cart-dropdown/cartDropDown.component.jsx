@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "./cartDropDown.styles.scss";
 import CustomButton from "../customButton/customButton.component";
@@ -9,10 +10,18 @@ const CartDropDown = () => {
   const { displayCart, setDisplayCart, cartItems } = useContext(CartContext);
 
   const toggleCartDisplay = () => setDisplayCart(!displayCart);
+
+  // navigation hook
+  const navigateToCheckout = useNavigate();
+  const goCheckout = () => {
+    toggleCartDisplay();
+    navigateToCheckout("/checkout");
+  };
+
   return (
     <div className="cart-drop-down-container">
       <div className="cart-drop-down-header">
-        <h1>My cart</h1>
+        <h1>My cart 🛒</h1>
         <span
           className="cart-drop-down-header--toggle"
           onClick={toggleCartDisplay}
@@ -48,7 +57,11 @@ const CartDropDown = () => {
       </ul>
 
       <div className="cart-button">
-        <CustomButton name="Add to Cart" type="button" />
+        <CustomButton
+          name="CHECKOUT"
+          type="button"
+          onClickHandler={goCheckout}
+        />
       </div>
     </div>
   );
