@@ -1,0 +1,14 @@
+.category-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+
+.category-title {
+  text-transform: uppercase;
+  font-size: 4rem;
+
+  &--span {
+    cursor: pointer;
+  }
+}

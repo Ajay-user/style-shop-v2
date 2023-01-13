@@ -13,7 +13,7 @@ const CartDropDown = () => {
 
   // navigation hook
   const navigateToCheckout = useNavigate();
-  const goCheckout = () => {
+  const goToCheckout = () => {
     toggleCartDisplay();
     navigateToCheckout("/checkout");
   };
@@ -31,36 +31,42 @@ const CartDropDown = () => {
       </div>
 
       <ul className="drop-down-list">
-        {cartItems.map((item) => (
-          <li className="drop-down-list__item" key={item.id}>
-            <div className="drop-down-list__item--image-container">
-              <img
-                className="drop-down-list__item--image"
-                src={item.imageUrl}
-                alt="product"
-              />
-            </div>
-
-            <div className="drop-down-list__item--box">
-              <h3 className="drop-down-list__item--name">{item.name}</h3>
-              <div className="drop-down-list__item--details">
-                <span className="drop-down-list__item--price">
-                  ${item.price}
-                </span>
-                <span className="drop-down-list__item--quantity">
-                  x {item.quantity}
-                </span>
+        {cartItems.length === 0 ? (
+          <div className="drop-down-list__empty">
+            <h2>Your cart is Empty</h2>
+          </div>
+        ) : (
+          cartItems.map((item) => (
+            <li className="drop-down-list__item" key={item.id}>
+              <div className="drop-down-list__item--image-container">
+                <img
+                  className="drop-down-list__item--image"
+                  src={item.imageUrl}
+                  alt="product"
+                />
               </div>
-            </div>
-          </li>
-        ))}
+
+              <div className="drop-down-list__item--box">
+                <h3 className="drop-down-list__item--name">{item.name}</h3>
+                <div className="drop-down-list__item--details">
+                  <span className="drop-down-list__item--price">
+                    ${item.price}
+                  </span>
+                  <span className="drop-down-list__item--quantity">
+                    x {item.quantity}
+                  </span>
+                </div>
+              </div>
+            </li>
+          ))
+        )}
       </ul>
 
       <div className="cart-button">
         <CustomButton
           name="CHECKOUT"
           type="button"
-          onClickHandler={goCheckout}
+          onClickHandler={goToCheckout}
         />
       </div>
     </div>

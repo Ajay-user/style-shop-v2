@@ -6,19 +6,22 @@ import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import App from "./App";
 import { UserProvider } from "./context/userContext";
-import { ProductsProvider } from "./context/productsContext";
+import { CategoriesProvider } from "./context/categoriesContext";
 import { CartProvider } from "./context/cartContext";
+import { WindowSizeProvider } from "./context/windowSizeContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <UserProvider>
       <React.StrictMode>
-        <ProductsProvider>
+        <CategoriesProvider>
           <CartProvider>
-            <App />
+            <WindowSizeProvider>
+              <App />
+            </WindowSizeProvider>
           </CartProvider>
-        </ProductsProvider>
+        </CategoriesProvider>
       </React.StrictMode>
     </UserProvider>
   </BrowserRouter>

@@ -1,3 +1,6 @@
+import { useNavigate } from "react-router-dom";
+
+// style
 import "./directory.styles.scss";
 
 const categories = [
@@ -28,21 +31,31 @@ const categories = [
   },
 ];
 
-const Directory = () => (
-  <div className="directory">
-    {categories.map((item) => (
-      <div className="category-item" key={item.id}>
+const Directory = () => {
+  const navigateToCollection = useNavigate();
+  const goToCollection = (collection) =>
+    navigateToCollection(`/shop/${collection}`);
+
+  return (
+    <div className="directory">
+      {categories.map((item) => (
         <div
-          className="category-item__background-img"
-          style={{ backgroundImage: `url(${item.imageUrl})` }}
-        ></div>
-        <div className="category-item__title-box">
-          <h1 className="category-item__title--main">{item.title}</h1>
-          <p className="category-item__title--sub">Shop Now !</p>
+          className="category-item"
+          key={item.id}
+          onClick={() => goToCollection(item.title)}
+        >
+          <div
+            className="category-item__background-img"
+            style={{ backgroundImage: `url(${item.imageUrl})` }}
+          ></div>
+          <div className="category-item__title-box">
+            <h1 className="category-item__title--main">{item.title}</h1>
+            <p className="category-item__title--sub">Shop Now !</p>
+          </div>
         </div>
-      </div>
-    ))}
-  </div>
-);
+      ))}
+    </div>
+  );
+};
 
 export default Directory;

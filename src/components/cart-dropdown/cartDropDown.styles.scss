@@ -34,6 +34,14 @@
 
   overflow-y: scroll;
 
+  // if cart-items is empty populate the msg
+  &__empty {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   &__item {
     display: flex;
     align-items: center;

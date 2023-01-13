@@ -16,7 +16,16 @@ import {
 // setDoc -- Writes to the document referred to by this DocumentReference.
 //            If the document does not yet exist, it will be created.
 
-import { doc, getFirestore, getDoc, setDoc } from "firebase/firestore";
+import {
+  doc, // Gets a DocumentReference instance that refers to the document at the specified absolute path.
+  getFirestore, // Returns the existing default Firestore instance
+  getDoc, // Reads the document referred to by this DocumentReference
+  setDoc, // Writes to the document referred to by this DocumentReference
+  collection, // Gets a CollectionReference instance that refers to the collection at the specified absolute path.
+  writeBatch, //Creates a write batch, used for performing multiple writes as a single atomic operation.
+  query, // The Query instance
+  getDocs, //Executes the query and returns the results as a QuerySnapshot.
+} from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -84,3 +93,40 @@ export const creatUserDocFromAuth = async (userAuth, additionalInfo) => {
 
 // FIREBASE : AUTH CHANGE LISTENER --util
 export const firebaseAuthChangeListener = (cb) => auth.onAuthStateChanged(cb);
+
+// FIREBASE : BATCH UPLOAD
+export const batchUpload = async (collectionKey, documents) => {
+  const collectionRef = await collection(db, collectionKey);
+  const batchJob = writeBatch(db);
+
+  try {
+    documents.forEach((obj) => {
+      const docRef = doc(collectionRef, obj.title.toLowerCase()); // setting name of document to obj title
+      // Writes to the document referred to by the provided * DocumentReference.
+      // If the document does not exist yet, it will be created.
+      batchJob.set(docRef, obj);
+    });
+
+    // start the batch JOB
+    // Commits all of the writes in this write batch as a single atomic unit.
+    await batchJob.commit();
+    console.log("BATCH JOB SUCCESS ✅");
+  } catch (error) {
+    console.log("Batch Job Failed ❌", error);
+  }
+};
+
+// FIREBASE : Get multiple documents from a collection
+export const getShopDataFromFirebase = async () => {
+  const collectionRef = collection(db, "collections");
+  const q = query(collectionRef);
+  const querySnapshot = await getDocs(q);
+
+  const shopData = await querySnapshot.docs.reduce((acc, curr) => {
+    const { title, items } = curr.data();
+    acc[title.toLowerCase()] = items;
+    return acc;
+  }, {});
+
+  return shopData;
+};
