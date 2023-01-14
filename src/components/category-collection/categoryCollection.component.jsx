@@ -27,9 +27,15 @@ const CategoryCollection = () => {
   //  it wont be readily available
   //   --> categoriesMap[category] this will output "undefined" in the very begining
 
-  if (collection)
-    return <CategoryContainer title={category} products={collection} />;
-  else return <SpinningAnimation />;
+  return (
+    <div className="category-collection-container">
+      {collection ? (
+        <CategoryContainer title={category} products={collection} />
+      ) : (
+        <SpinningAnimation />
+      )}
+    </div>
+  );
 };
 
 export default CategoryCollection;

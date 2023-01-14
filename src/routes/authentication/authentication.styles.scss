@@ -2,17 +2,19 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding-top: 5rem;
+  padding: 5rem 0;
   background-image: url("../../../public/undraw_halloween_re_2kq1.svg");
-  background-repeat: repeat-x;
+  background-repeat: no-repeat;
   background-position: top;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1200px) {
   .authentication-page {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
     gap: 3rem;
+
+    background-image: none;
   }
 }

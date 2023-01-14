@@ -68,6 +68,7 @@ const SignUpForm = () => {
 
       <form onSubmit={onSubmitHandler}>
         <h2 className="form-heading">Don't have an account?</h2>
+        <h2 className="form-heading">SignUp Here !</h2>
 
         <FormInput
           placeholder="Enter a username"
